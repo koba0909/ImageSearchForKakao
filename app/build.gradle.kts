@@ -32,14 +32,20 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
+    }
+
+    buildFeatures {
+        dataBinding = true
     }
 }
 
 dependencies {
     implementation(project(":feature:search"))
     implementation(project(":feature:storage"))
+    implementation(project(":core:base"))
     implementation(project(":core:domain"))
     implementation(project(":core:data"))
     implementation(project(":core:data-implement"))

@@ -1,1 +1,2 @@
 com.koba.search
+layout fragment_search
