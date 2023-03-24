@@ -4,7 +4,8 @@ compileSdk = "33"
 targetSdk = "33"
 minSdk = "24"
 jvmTarget = "1.8"
-
+versionName = "1.0.0" # X.YY.Z
+versionCode = "100000" # X.YY.Z.BB
 # plugin
 hilt-plugin = "2.42"
 
@@ -38,8 +39,12 @@ androidx-lifecycle-viewmodel-ktx = "2.5.1"
 accompanist-pager = "0.26.5-rc"
 accompanist-swipe-refresh = "0.26.5-rc"
 androidx-navigation = "2.5.3"
+androidx-constraintlayout = "2.1.4"
+android-material = "1.8.0"
 
 [libraries]
+# android
+android-material = { module = "com.google.android.material:material", version.ref = "material" }
 # andoridx
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx"}
@@ -47,6 +52,7 @@ androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", vers
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle-viewmodel-ktx" }
 androidx-navigation = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation"}
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 # androidx-compose
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
