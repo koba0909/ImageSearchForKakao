@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -41,6 +39,7 @@ android {
 
 dependencies {
     implementation(project(":core:domain"))
+    implementation(project(":core:data"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
