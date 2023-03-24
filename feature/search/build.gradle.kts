@@ -30,6 +30,8 @@ dependencies {
 	implementation(libs.androidx.constraintlayout)
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.androidx.appcompat)
+	implementation(libs.androidx.lifecycle.viewmodel.ktx)
+	implementation(libs.androidx.fragment.ktx)
 	implementation(libs.hilt)
 	kapt(libs.hilt.compiler)
 }
