@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ImageSearchForKakao"
 include(":app")
+include(":core:domain")

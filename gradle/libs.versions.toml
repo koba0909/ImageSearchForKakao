@@ -41,6 +41,7 @@ accompanist-swipe-refresh = "0.26.5-rc"
 androidx-navigation = "2.5.3"
 androidx-constraintlayout = "2.1.4"
 android-material = "1.8.0"
+kotlinx-coroutines = "1.6.4"
 
 [libraries]
 # android
@@ -102,6 +103,9 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist-pager"}
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist-pager"}
 accompanist-swipe-refresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist-swipe-refresh"}
+
+# kotlinx
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 
 [bundles]
 androidx-compose = ["androidx-compose-ui", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview", "androidx-activity-compose"]
