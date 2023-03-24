@@ -38,10 +38,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:search"))
+    implementation(project(":feature:storage"))
     implementation(project(":core:domain"))
     implementation(project(":core:data"))
     implementation(project(":core:data-implement"))
-    implementation(project(":feature:search"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
