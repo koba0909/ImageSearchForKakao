@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-	namespace = "com.koba.domain"
+	namespace = "com.koba.data_implement"
 	compileSdk = libs.versions.compileSdk.get().toInt()
 
 	defaultConfig {
@@ -20,10 +20,10 @@ android {
 }
 
 dependencies {
-	implementation(project(":core:data"))
-	runtimeOnly(project(":core:data-implement"))
-
 	implementation(libs.kotlinx.coroutines.android)
+	implementation(libs.androidx.core.ktx)
 	implementation(libs.hilt)
 	kapt(libs.hilt.compiler)
+	implementation(libs.kotlinx.coroutines.android)
+	implementation(libs.kotlinx.serialization.json)
 }

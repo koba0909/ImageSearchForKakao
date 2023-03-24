@@ -5,6 +5,12 @@ plugins {
 
 android {
 	namespace = "com.koba.data"
+	compileSdk = libs.versions.compileSdk.get().toInt()
+
+	defaultConfig {
+		minSdk = libs.versions.minSdk.get().toInt()
+		targetSdk = libs.versions.targetSdk.get().toInt()
+	}
 
 	compileOptions {
 		sourceCompatibility = JavaVersion.VERSION_1_8
@@ -15,7 +21,6 @@ android {
 dependencies {
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.androidx.core.ktx)
-
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.kotlinx.serialization.json)
 }

@@ -16,3 +16,4 @@ rootProject.name = "ImageSearchForKakao"
 include(":app")
 include(":core:domain")
 include(":core:data")
+include(":core:data-implement")
