@@ -28,5 +28,5 @@ dependencies {
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.glide)
-	implementation(libs.glide.compiler)
+	kapt(libs.glide.compiler)
 }

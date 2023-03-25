@@ -10,7 +10,9 @@ class SearchResultViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.imageViewThumbnail.setOnLongClickListener {
-            onPickImage.invoke(binding.imageModel)
+            binding.imageModel?.let {
+                onPickImage.invoke(it)
+            }
             true
         }
     }
