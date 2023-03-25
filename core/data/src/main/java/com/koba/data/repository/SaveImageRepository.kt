@@ -8,9 +8,9 @@ interface SaveImageRepository {
         saveTime: Long,
     )
 
-    fun contain(
-        thumbnailUrl: String,
-    ): Boolean
+    fun deleteImage(thumbnailUrl: String)
+
+    fun contain(thumbnailUrl: String): Boolean
 
     fun getSavedImageList(): List<SavedImageDto>
 }
