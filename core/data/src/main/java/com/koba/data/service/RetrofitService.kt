@@ -7,13 +7,13 @@ import retrofit2.http.Query
 
 interface RetrofitService {
     @GET("/v2/search/image")
-    fun requestSearchImage(
+    suspend fun requestSearchImage(
         @Query("query")
         query: String,
     ): ImageSearchResponseDto
 
     @GET("/v2/search/video")
-    fun requestSearchVideo(
+    suspend fun requestSearchVideo(
         @Query("query")
         query: String,
     ): VideoSearchResponseDto
