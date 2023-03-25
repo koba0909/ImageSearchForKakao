@@ -10,7 +10,7 @@ import com.koba.domain.model.ImageModel
 import com.koba.search.viewholder.SearchResultViewHolder
 
 class SearchListAdapter(
-    private val onPickImage: (ImageModel) -> Unit
+    private val onPickImage: (ImageModel) -> Unit,
 ) : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -21,7 +21,7 @@ class SearchListAdapter(
                 parent,
                 false,
             ),
-            onPickImage = onPickImage
+            onPickImage = onPickImage,
         )
     }
 
