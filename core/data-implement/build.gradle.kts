@@ -20,6 +20,8 @@ android {
 }
 
 dependencies {
+	implementation(project(":core:data"))
+
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.hilt)
