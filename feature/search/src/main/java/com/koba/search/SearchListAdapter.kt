@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.koba.domain.model.ImageModel
+import com.koba.search.viewholder.SearchResultViewHolder
 
 class SearchListAdapter : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffCallback) {
 
