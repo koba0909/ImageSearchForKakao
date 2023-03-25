@@ -1,5 +1,6 @@
 package com.koba.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.koba.domain.model.SearchResult
@@ -51,6 +52,8 @@ class SearchViewModel @Inject constructor(
                 _isLoading.update { true }
             }.onCompletion {
                 _isLoading.update { false }
+            }.catch { e ->
+                Log.d("hugh", e.message ?: "")
             }.collect {
                 _imageList.update { it }
             }
