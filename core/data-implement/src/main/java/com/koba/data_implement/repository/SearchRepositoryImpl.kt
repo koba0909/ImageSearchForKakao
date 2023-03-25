@@ -1,11 +1,18 @@
 package com.koba.data_implement.repository
 
-import com.koba.data.dto.SearchResponseDto
 import com.koba.data.repository.SearchRepository
-import kotlinx.coroutines.flow.Flow
+import com.koba.data.service.RetrofitService
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class SearchRepositoryImpl : SearchRepository {
-    override suspend fun requestSearch(keyword: String): Flow<SearchResponseDto> {
-        TODO("Not yet implemented")
+class SearchRepositoryImpl @Inject constructor(
+    private val retrofitService: RetrofitService,
+) : SearchRepository {
+    override suspend fun requestSearchFromImage(keyword: String) = flow {
+        emit(retrofitService.requestSearchImage(keyword))
+    }
+
+    override suspend fun requestSearchFromVideo(keyword: String) = flow {
+        emit(retrofitService.requestSearchVideo(keyword))
     }
 }
