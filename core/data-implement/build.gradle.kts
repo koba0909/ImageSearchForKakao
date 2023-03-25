@@ -2,6 +2,7 @@ plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.kapt)
+	alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -22,11 +23,10 @@ android {
 dependencies {
 	implementation(project(":core:data"))
 	implementation(project(":core:network"))
-
+	implementation(libs.bundles.kotlinx.serialization)
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.hilt)
 	implementation(libs.retrofit)
 	kapt(libs.hilt.compiler)
-	implementation(libs.kotlinx.serialization.json)
 }

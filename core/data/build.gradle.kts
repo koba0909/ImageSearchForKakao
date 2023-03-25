@@ -21,9 +21,8 @@ android {
 
 dependencies {
 	implementation(project(":core:network"))
-
+	implementation(libs.bundles.kotlinx.serialization)
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.androidx.core.ktx)
-	implementation(libs.kotlinx.serialization.json)
 	implementation(libs.retrofit)
 }
