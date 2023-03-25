@@ -1,11 +1,13 @@
 package com.koba.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.koba.domain.model.SearchResult
+import com.koba.domain.usecase.GetImageSearchResultListUseCase
+import com.koba.domain.usecase.GetVideoSearchResultListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed interface SearchUIState {
@@ -17,7 +19,10 @@ sealed interface SearchUIState {
 }
 
 @HiltViewModel
-class SearchViewModel @Inject constructor() : ViewModel() {
+class SearchViewModel @Inject constructor(
+    private val getImageSearchResultListUseCase: GetImageSearchResultListUseCase,
+    private val getVideoSearchResultListUseCase: GetVideoSearchResultListUseCase,
+) : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     private val _imageList = MutableStateFlow<List<SearchResult>>(emptyList())
 
@@ -30,7 +35,26 @@ class SearchViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onSearchKeyword(keyword: String): Boolean {
-        Log.d("hugh", keyword)
+        _imageList.update {
+            emptyList()
+        }
+
+        viewModelScope.launch {
+            combine(
+                getImageSearchResultListUseCase(keyword),
+                getVideoSearchResultListUseCase(keyword),
+            ) { images, videos ->
+                images + videos
+            }.map { searchResults ->
+                searchResults.sortedBy { it.dateTime }
+            }.onStart {
+                _isLoading.update { true }
+            }.onCompletion {
+                _isLoading.update { false }
+            }.collect {
+                _imageList.update { it }
+            }
+        }
         return false
     }
 
