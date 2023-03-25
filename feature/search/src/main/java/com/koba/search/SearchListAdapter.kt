@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.koba.domain.model.ImageModel
 import com.koba.search.viewholder.SearchResultViewHolder
 
-class SearchListAdapter : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffCallback) {
+class SearchListAdapter(
+    private val onPickImage: (ImageModel) -> Unit
+) : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SearchResultViewHolder(
@@ -17,8 +19,9 @@ class SearchListAdapter : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffC
                 LayoutInflater.from(parent.context),
                 R.layout.holder_search_result,
                 parent,
-                false
-            )
+                false,
+            ),
+            onPickImage = onPickImage
         )
     }
 
@@ -27,7 +30,6 @@ class SearchListAdapter : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffC
             is SearchResultViewHolder -> holder.bind(getItem(position))
         }
     }
-
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<ImageModel>() {
