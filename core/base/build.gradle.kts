@@ -27,4 +27,6 @@ dependencies {
 	implementation(libs.androidx.appcompat)
 	implementation(libs.kotlinx.coroutines.android)
 	implementation(libs.androidx.core.ktx)
+	implementation(libs.glide)
+	implementation(libs.glide.compiler)
 }
