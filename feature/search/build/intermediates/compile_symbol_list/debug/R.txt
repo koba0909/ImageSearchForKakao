@@ -1,2 +1,0 @@
-int id edit_text_search_keyword 0x0
-int layout fragment_search 0x0
