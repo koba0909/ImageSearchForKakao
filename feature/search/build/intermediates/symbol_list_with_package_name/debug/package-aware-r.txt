@@ -1,3 +1,0 @@
-com.koba.search
-id edit_text_search_keyword
-layout fragment_search

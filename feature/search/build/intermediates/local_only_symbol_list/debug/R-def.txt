@@ -1,4 +1,0 @@
-R_DEF: Internal format may change without notice
-local
-id edit_text_search_keyword
-layout fragment_search

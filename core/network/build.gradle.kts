@@ -2,10 +2,12 @@ plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.serialization)
+	alias(libs.plugins.kotlin.kapt)
+	alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
-	namespace = "com.koba.data"
+	namespace = "com.koba.data_implement"
 	compileSdk = libs.versions.compileSdk.get().toInt()
 
 	defaultConfig {
@@ -21,6 +23,9 @@ android {
 
 dependencies {
 	implementation(libs.kotlinx.coroutines.android)
-	implementation(libs.androidx.core.ktx)
-	implementation(libs.kotlinx.serialization.json)
+	implementation(libs.bundles.kotlinx.serialization)
+	implementation(libs.okhttp)
+	implementation(libs.retrofit)
+	kapt(libs.hilt.compiler)
+	implementation(libs.hilt)
 }
