@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+	implementation(project(":core:base"))
 	implementation(project(":core:data"))
 	runtimeOnly(project(":core:data-implement"))
 

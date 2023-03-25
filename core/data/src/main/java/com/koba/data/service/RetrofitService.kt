@@ -1,6 +1,7 @@
 package com.koba.data.service
 
-import com.koba.data.dto.SearchResponseDto
+import com.koba.data.dto.ImageSearchResponseDto
+import com.koba.data.dto.VideoSearchResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -9,13 +10,13 @@ interface RetrofitService {
     fun requestSearchImage(
         @Query("query")
         query: String,
-    ): SearchResponseDto
+    ): ImageSearchResponseDto
 
     @GET("/v2/search/video")
     fun requestSearchVideo(
         @Query("query")
         query: String,
-    ): SearchResponseDto
+    ): VideoSearchResponseDto
 
     companion object {
         const val BASE_URL = "https://dapi.kakao.com"
