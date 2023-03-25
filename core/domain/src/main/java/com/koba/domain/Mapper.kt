@@ -4,7 +4,7 @@ import com.koba.data.dto.ImageInfoDto
 import com.koba.data.dto.VideoInfoDto
 import com.koba.domain.model.SearchResult
 
-fun List<ImageInfoDto>.toSearchResultList(): List<SearchResult> {
+fun List<ImageInfoDto>.toSearchResultImageList(): List<SearchResult> {
     return map {
         SearchResult.Image(
             thumbnailUrl = it.thumbnailUrl,
@@ -14,7 +14,7 @@ fun List<ImageInfoDto>.toSearchResultList(): List<SearchResult> {
     }
 }
 
-fun List<VideoInfoDto>.toSearchResultList(): List<SearchResult> {
+fun List<VideoInfoDto>.toSearchResultVideoList(): List<SearchResult> {
     return map {
         SearchResult.Video(
             thumbnailUrl = it.thumbnailUrl,

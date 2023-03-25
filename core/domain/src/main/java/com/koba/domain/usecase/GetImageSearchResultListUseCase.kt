@@ -3,7 +3,7 @@ package com.koba.domain.usecase
 import com.koba.base.di.DispatcherModule
 import com.koba.data.repository.SearchRepository
 import com.koba.domain.model.SearchResult
-import com.koba.domain.toSearchResultList
+import com.koba.domain.toSearchResultImageList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -19,7 +19,7 @@ class GetImageSearchResultListUseCase @Inject constructor(
     suspend operator fun invoke(keyword: String): Flow<List<SearchResult>> =
         searchRepository.requestSearchFromImage(keyword)
             .map {
-                it.imageInfo.toSearchResultList()
+                it.imageInfo.toSearchResultImageList()
             }
             .flowOn(defaultDispatcher)
 }

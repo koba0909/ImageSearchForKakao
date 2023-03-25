@@ -64,7 +64,7 @@ public class HolderSearchResultBindingImpl extends HolderSearchResultBinding  {
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
         if (BR.imageModel == variableId) {
-            setImageModel((com.koba.domain.model.ImageModel) variable);
+            setImageModel((com.koba.domain.model.SearchResult) variable);
         }
         else {
             variableSet = false;
@@ -72,7 +72,7 @@ public class HolderSearchResultBindingImpl extends HolderSearchResultBinding  {
             return variableSet;
     }
 
-    public void setImageModel(@Nullable com.koba.domain.model.ImageModel ImageModel) {
+    public void setImageModel(@Nullable com.koba.domain.model.SearchResult ImageModel) {
         this.mImageModel = ImageModel;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
@@ -95,26 +95,26 @@ public class HolderSearchResultBindingImpl extends HolderSearchResultBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
+        java.lang.String imageModelThumbnailUrl = null;
         boolean imageModelIsSaved = false;
-        java.lang.String imageModelUrl = null;
-        com.koba.domain.model.ImageModel imageModel = mImageModel;
+        com.koba.domain.model.SearchResult imageModel = mImageModel;
 
         if ((dirtyFlags & 0x3L) != 0) {
 
 
 
                 if (imageModel != null) {
+                    // read imageModel.thumbnailUrl
+                    imageModelThumbnailUrl = imageModel.getThumbnailUrl();
                     // read imageModel.isSaved
                     imageModelIsSaved = imageModel.isSaved();
-                    // read imageModel.url
-                    imageModelUrl = imageModel.getUrl();
                 }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
 
-            com.koba.base.BaseBindingAdapterKt.bindImageUrl(this.imageViewThumbnail, imageModelUrl);
+            com.koba.base.BaseBindingAdapterKt.bindImageUrl(this.imageViewThumbnail, imageModelThumbnailUrl);
             com.koba.search.SearchBindingAdapterKt.bindIsSaved(this.mboundView2, imageModelIsSaved);
         }
     }

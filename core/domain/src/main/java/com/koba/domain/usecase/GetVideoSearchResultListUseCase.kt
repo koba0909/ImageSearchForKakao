@@ -3,7 +3,7 @@ package com.koba.domain.usecase
 import com.koba.base.di.DispatcherModule
 import com.koba.data.repository.SearchRepository
 import com.koba.domain.model.SearchResult
-import com.koba.domain.toSearchResultList
+import com.koba.domain.toSearchResultVideoList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -18,7 +18,7 @@ class GetVideoSearchResultListUseCase @Inject constructor(
     suspend operator fun invoke(keyword: String): Flow<List<SearchResult>> =
         searchRepository.requestSearchFromVideo(keyword)
             .map {
-                it.videoInfo.toSearchResultList()
+                it.videoInfo.toSearchResultVideoList()
             }
             .flowOn(defaultDispatcher)
 }

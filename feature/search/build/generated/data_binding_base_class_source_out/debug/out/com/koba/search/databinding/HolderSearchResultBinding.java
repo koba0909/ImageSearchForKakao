@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import com.koba.domain.model.ImageModel;
+import com.koba.domain.model.SearchResult;
 import com.koba.search.R;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -20,7 +20,7 @@ public abstract class HolderSearchResultBinding extends ViewDataBinding {
   public final ImageView imageViewThumbnail;
 
   @Bindable
-  protected ImageModel mImageModel;
+  protected SearchResult mImageModel;
 
   protected HolderSearchResultBinding(Object _bindingComponent, View _root, int _localFieldCount,
       ImageView imageViewThumbnail) {
@@ -28,10 +28,10 @@ public abstract class HolderSearchResultBinding extends ViewDataBinding {
     this.imageViewThumbnail = imageViewThumbnail;
   }
 
-  public abstract void setImageModel(@Nullable ImageModel imageModel);
+  public abstract void setImageModel(@Nullable SearchResult imageModel);
 
   @Nullable
-  public ImageModel getImageModel() {
+  public SearchResult getImageModel() {
     return mImageModel;
   }
 
