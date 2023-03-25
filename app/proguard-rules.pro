@@ -27,3 +27,11 @@
 -dontwarn org.bouncycastle.jsse.**
 -dontwarn org.conscrypt.*
 -dontwarn org.openjsse.**
+
+-keep @android.support.annotation.Keep class *
+-keep @android.support.annotation.Keep class * {
+    *;
+}
+-keep class * {
+    @android.support.annotation.Keep *;
+}
