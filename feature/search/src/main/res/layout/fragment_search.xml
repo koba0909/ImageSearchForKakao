@@ -4,18 +4,23 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.koba.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/edit_text_search_keyword"
             android:layout_width="0dp"
             android:layout_height="50dp"
+            android:onQueryTextChange="@{(query) -> viewModel.onSearchKeyword(query)}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
