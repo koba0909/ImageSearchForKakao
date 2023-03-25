@@ -1,4 +1,4 @@
-package com.koba.search
+package com.koba.search.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.koba.domain.model.ImageModel
