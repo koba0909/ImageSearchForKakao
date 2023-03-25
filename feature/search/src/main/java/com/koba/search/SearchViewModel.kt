@@ -2,7 +2,7 @@ package com.koba.search
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.koba.domain.model.ImageModel
+import com.koba.domain.model.SearchResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -12,14 +12,14 @@ sealed interface SearchUIState {
     object Empty : SearchUIState
     object Loading : SearchUIState
     data class Show(
-        val imageList: List<ImageModel>,
+        val imageList: List<SearchResult>,
     ) : SearchUIState
 }
 
 @HiltViewModel
 class SearchViewModel @Inject constructor() : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
-    private val _imageList = MutableStateFlow<List<ImageModel>>(emptyList())
+    private val _imageList = MutableStateFlow<List<SearchResult>>(emptyList())
 
     val uiState = combine(_isLoading, _imageList) { isLoading, imageList ->
         when {
@@ -34,7 +34,7 @@ class SearchViewModel @Inject constructor() : ViewModel() {
         return false
     }
 
-    fun onPickImage(imageModel: ImageModel) {
+    fun onPickImage(searchResult: SearchResult) {
         // TODO image 선택 후 보관함에 저장
     }
 }

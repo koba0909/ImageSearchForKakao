@@ -6,12 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.koba.domain.model.ImageModel
+import com.koba.domain.model.SearchResult
 import com.koba.search.viewholder.SearchResultViewHolder
 
 class SearchListAdapter(
-    private val onPickImage: (ImageModel) -> Unit,
-) : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffCallback) {
+    private val onPickImage: (SearchResult) -> Unit,
+) : ListAdapter<SearchResult, RecyclerView.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SearchResultViewHolder(
@@ -32,15 +32,15 @@ class SearchListAdapter(
     }
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<ImageModel>() {
+        private val diffCallback = object : DiffUtil.ItemCallback<SearchResult>() {
             override fun areItemsTheSame(
-                oldItem: ImageModel,
-                newItem: ImageModel,
-            ) = oldItem.url == newItem.url
+                oldItem: SearchResult,
+                newItem: SearchResult,
+            ) = oldItem.thumbnailUrl == newItem.thumbnailUrl
 
             override fun areContentsTheSame(
-                oldItem: ImageModel,
-                newItem: ImageModel,
+                oldItem: SearchResult,
+                newItem: SearchResult,
             ) = oldItem == newItem
         }
     }

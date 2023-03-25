@@ -5,7 +5,7 @@
     <data>
         <variable
             name="imageModel"
-            type="com.koba.domain.model.ImageModel" />
+            type="com.koba.domain.model.SearchResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
             android:id="@+id/image_view_thumbnail"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            bindImageUrl="@{imageModel.url}"
+            bindImageUrl="@{imageModel.thumbnailUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
