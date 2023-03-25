@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-	namespace = "com.koba.data_implement"
+	namespace = "com.koba.network"
 	compileSdk = libs.versions.compileSdk.get().toInt()
 
 	defaultConfig {

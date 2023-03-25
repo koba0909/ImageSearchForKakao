@@ -1,0 +1,6 @@
+com.koba.search
+id image_view_thumbnail
+id recyclerview_search_result
+id search_view
+layout fragment_search
+layout holder_search_result
