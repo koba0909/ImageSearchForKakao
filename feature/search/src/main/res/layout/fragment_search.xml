@@ -7,6 +7,10 @@
         <variable
             name="viewModel"
             type="com.koba.search.SearchViewModel" />
+
+        <variable
+            name="uiState"
+            type="com.koba.search.SearchUIState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +18,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/edit_text_search_keyword"
+            android:id="@+id/search_view"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:onQueryTextChange="@{(query) -> viewModel.onSearchKeyword(query)}"
