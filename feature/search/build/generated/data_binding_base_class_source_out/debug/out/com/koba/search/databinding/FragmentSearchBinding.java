@@ -6,15 +6,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import com.koba.search.R;
+import com.koba.search.SearchViewModel;
 import java.lang.Deprecated;
 import java.lang.Object;
 
 public abstract class FragmentSearchBinding extends ViewDataBinding {
-  protected FragmentSearchBinding(Object _bindingComponent, View _root, int _localFieldCount) {
+  @NonNull
+  public final SearchView editTextSearchKeyword;
+
+  @Bindable
+  protected SearchViewModel mViewModel;
+
+  protected FragmentSearchBinding(Object _bindingComponent, View _root, int _localFieldCount,
+      SearchView editTextSearchKeyword) {
     super(_bindingComponent, _root, _localFieldCount);
+    this.editTextSearchKeyword = editTextSearchKeyword;
+  }
+
+  public abstract void setViewModel(@Nullable SearchViewModel viewModel);
+
+  @Nullable
+  public SearchViewModel getViewModel() {
+    return mViewModel;
   }
 
   @NonNull
