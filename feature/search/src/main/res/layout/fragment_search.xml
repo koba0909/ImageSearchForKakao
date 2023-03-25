@@ -31,6 +31,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             isVisible="@{uiState instanceof SearchUIState.Show}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_view"

@@ -33,4 +33,8 @@ class SearchViewModel @Inject constructor() : ViewModel() {
         Log.d("hugh", keyword)
         return false
     }
+
+    fun onPickImage(imageModel: ImageModel) {
+        // TODO image 선택 후 보관함에 저장
+    }
 }

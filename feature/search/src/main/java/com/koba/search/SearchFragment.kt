@@ -15,6 +15,13 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SearchFragment : BaseDataBindingFragment<FragmentSearchBinding>(R.layout.fragment_search) {
     private val searchViewModel: SearchViewModel by viewModels()
+    private val searchListAdapter by lazy {
+        SearchListAdapter(
+            onPickImage = {
+                searchViewModel.onPickImage(it)
+            },
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +32,7 @@ class SearchFragment : BaseDataBindingFragment<FragmentSearchBinding>(R.layout.f
     private fun initView() {
         with(binding) {
             viewModel = searchViewModel
+            recyclerviewSearchResult.adapter = searchListAdapter
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
