@@ -31,6 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             isVisible="@{uiState instanceof SearchUIState.Show}"
+            bindSearchList="@{uiState}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             app:layout_constraintStart_toStartOf="parent"

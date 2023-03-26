@@ -31,12 +31,11 @@ class SearchViewModel @Inject constructor(
     private val _keyword = MutableSharedFlow<String>()
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    private val _searchResult = _keyword.debounce(500)
+    private val _searchResult = _keyword
+        .onEach { _isLoading.update { true } }
+        .debounce(500)
         .flatMapLatest { getSearchResultFlow(it) }
-        .onStart {
-            _isLoading.update { true }
-        }
-        .onCompletion {
+        .onEach {
             _isLoading.update { false }
         }
 
@@ -71,8 +70,8 @@ class SearchViewModel @Inject constructor(
             images + videos
         }.map { searchResults ->
             searchResults.sortedBy { it.dateTime }
-        }.catch {
-            it.message?.let { Log.e(TAG, it) }
+        }.catch { e ->
+            e.message?.let { Log.e(TAG, it) }
         }
     }
 
