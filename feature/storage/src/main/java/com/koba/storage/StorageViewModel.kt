@@ -3,7 +3,7 @@ package com.koba.storage
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.koba.domain.model.SavedImage
+import com.koba.domain.model.StorageImage
 import com.koba.domain.usecase.DeleteImageUrlUseCase
 import com.koba.domain.usecase.GetSavedImageListUseCase
 import com.koba.domain.usecase.SaveImageUrlUseCase
@@ -15,7 +15,7 @@ import javax.inject.Inject
 sealed interface StorageUiState {
     object Empty : StorageUiState
 
-    data class HaveList(val savedImageList: List<SavedImage>) : StorageUiState
+    data class HaveList(val storageImageList: List<StorageImage>) : StorageUiState
 }
 
 @HiltViewModel
@@ -24,9 +24,9 @@ class StorageViewModel @Inject constructor(
     private val saveImageUrlUseCase: SaveImageUrlUseCase,
     private val deleteImageUrlUseCase: DeleteImageUrlUseCase,
 ) : ViewModel() {
-    private val _savedImageList = MutableStateFlow<List<SavedImage>>(emptyList())
+    private val _storageImageList = MutableStateFlow<List<StorageImage>>(emptyList())
 
-    val uiState = _savedImageList.map {
+    val uiState = _storageImageList.map {
         if (it.isEmpty()) {
             StorageUiState.Empty
         } else {
@@ -47,7 +47,7 @@ class StorageViewModel @Inject constructor(
             runCatching {
                 getSavedImageListUseCase()
             }.onSuccess {
-                _savedImageList.update { list ->
+                _storageImageList.update { list ->
                     list.sortedBy { it.savedTime }
                 }
             }.onFailure { e ->

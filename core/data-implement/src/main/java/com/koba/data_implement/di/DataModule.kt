@@ -3,9 +3,11 @@ package com.koba.data_implement.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.koba.data.repository.SearchRepository
+import com.koba.data.repository.StorageRepository
 import com.koba.data.service.RetrofitService
 import com.koba.data_implement.provider.ImageSharedPreferenceProvider
 import com.koba.data_implement.repository.SearchRepositoryImpl
+import com.koba.data_implement.repository.StorageRepositoryImpl
 import com.koba.network.RetrofitNetwork
 import dagger.Binds
 import dagger.Module
@@ -23,6 +25,10 @@ abstract class DataModule {
     @Singleton
     abstract fun bindSearchRepository(repositoryImpl: SearchRepositoryImpl): SearchRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindStorageRepository(repositoryImpl: StorageRepositoryImpl): StorageRepository
+
     companion object {
         @Provides
         @Singleton
@@ -38,10 +44,10 @@ abstract class DataModule {
         @Provides
         @Singleton
         fun provideSharedPreference(
-            @ApplicationContext context: Context
+            @ApplicationContext context: Context,
         ): SharedPreferences = context.getSharedPreferences(
             ImageSharedPreferenceProvider.PREFERENCE_NAME,
-            Context.MODE_PRIVATE
+            Context.MODE_PRIVATE,
         )
     }
 }

@@ -2,7 +2,7 @@ package com.koba.data.repository
 
 import com.koba.data.dto.SavedImageDto
 
-interface SaveImageRepository {
+interface StorageRepository {
     suspend fun saveImage(
         thumbnailUrl: String,
         saveTime: Long,

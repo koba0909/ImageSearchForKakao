@@ -1,12 +1,12 @@
 package com.koba.domain.usecase
 
-import com.koba.data.repository.SaveImageRepository
+import com.koba.data.repository.StorageRepository
 import javax.inject.Inject
 
 class SaveImageUrlUseCase @Inject constructor(
-    private val saveImageRepository: SaveImageRepository,
+	private val storageRepository: StorageRepository,
 ) {
     suspend operator fun invoke(thumbnailUrl: String, saveTime: Long) {
-        saveImageRepository.saveImage(thumbnailUrl, saveTime)
+        storageRepository.saveImage(thumbnailUrl, saveTime)
     }
 }

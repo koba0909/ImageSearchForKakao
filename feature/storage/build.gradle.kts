@@ -9,6 +9,10 @@ android {
 	namespace = "com.koba.storage"
 	compileSdk = libs.versions.compileSdk.get().toInt()
 
+	buildFeatures {
+		dataBinding = true
+	}
+
 	defaultConfig {
 		minSdk = libs.versions.minSdk.get().toInt()
 		targetSdk = libs.versions.targetSdk.get().toInt()

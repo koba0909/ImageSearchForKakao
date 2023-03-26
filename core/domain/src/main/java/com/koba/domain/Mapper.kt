@@ -3,7 +3,7 @@ package com.koba.domain
 import com.koba.data.dto.ImageInfoDto
 import com.koba.data.dto.SavedImageDto
 import com.koba.data.dto.VideoInfoDto
-import com.koba.domain.model.SavedImage
+import com.koba.domain.model.StorageImage
 import com.koba.domain.model.SearchResult
 
 fun List<ImageInfoDto>.toSearchResultImageList(): List<SearchResult> {
@@ -26,4 +26,4 @@ fun List<VideoInfoDto>.toSearchResultVideoList(): List<SearchResult> {
     }
 }
 
-fun SavedImageDto.toSavedImage() = SavedImage(thumbnailUrl, savedTime)
+fun SavedImageDto.toSavedImage() = StorageImage(thumbnailUrl, savedTime)

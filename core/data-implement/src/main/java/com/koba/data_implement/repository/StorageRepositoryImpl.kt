@@ -2,17 +2,17 @@ package com.koba.data_implement.repository
 
 import com.koba.base.di.DispatcherModule
 import com.koba.data.dto.SavedImageDto
-import com.koba.data.repository.SaveImageRepository
+import com.koba.data.repository.StorageRepository
 import com.koba.data_implement.provider.ImageSharedPreferenceProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SaveImageRepositoryImpl @Inject constructor(
+class StorageRepositoryImpl @Inject constructor(
     private val imageSharedPreferenceProvider: ImageSharedPreferenceProvider,
     @DispatcherModule.DispatcherIO
     private val ioDispatcher: CoroutineDispatcher,
-) : SaveImageRepository {
+) : StorageRepository {
     override suspend fun saveImage(thumbnailUrl: String, saveTime: Long) {
         withContext(ioDispatcher) {
             imageSharedPreferenceProvider.setLong(thumbnailUrl, saveTime)
