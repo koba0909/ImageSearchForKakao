@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.koba.domain.model.StorageImage
 import com.koba.domain.usecase.DeleteImageUrlUseCase
 import com.koba.domain.usecase.GetSavedImageListUseCase
-import com.koba.domain.usecase.SaveImageUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -21,10 +20,12 @@ sealed interface StorageUiState {
 @HiltViewModel
 class StorageViewModel @Inject constructor(
     private val getSavedImageListUseCase: GetSavedImageListUseCase,
-    private val saveImageUrlUseCase: SaveImageUrlUseCase,
     private val deleteImageUrlUseCase: DeleteImageUrlUseCase,
 ) : ViewModel() {
     private val _storageImageList = MutableStateFlow<List<StorageImage>>(emptyList())
+
+    private val _showSnackBar = MutableSharedFlow<Int>()
+    val showSnackBar get() = _showSnackBar
 
     val uiState = _storageImageList.map {
         if (it.isEmpty()) {
@@ -56,20 +57,12 @@ class StorageViewModel @Inject constructor(
         }
     }
 
-    fun saveImage(thumbnailUrl: String) {
-        viewModelScope.launch {
-            saveImageUrlUseCase(
-                thumbnailUrl,
-                System.nanoTime(),
-            )
-
-            fetchSavedImages()
-        }
-    }
-
     fun deleteImage(thumbnailUrl: String) {
         viewModelScope.launch {
+            _showSnackBar.emit(R.string.delete_storage)
+
             deleteImageUrlUseCase(thumbnailUrl)
+
             fetchSavedImages()
         }
     }

@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.snackbar.Snackbar
 import com.koba.base.BaseDataBindingFragment
 import com.koba.storage.databinding.FragmentStorageBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,8 +57,20 @@ class StorageFragment : BaseDataBindingFragment<FragmentStorageBinding>(R.layout
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 storageViewModel.run {
-                    uiState.collect {
-                        binding.uiState = it
+                    launch {
+                        uiState.collect {
+                            binding.uiState = it
+                        }
+                    }
+
+                    launch {
+                        showSnackBar.collect {
+                            Snackbar.make(
+                                binding.root,
+                                it,
+                                Snackbar.LENGTH_SHORT,
+                            ).show()
+                        }
                     }
                 }
             }

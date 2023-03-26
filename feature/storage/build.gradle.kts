@@ -38,6 +38,7 @@ dependencies {
 	implementation(libs.androidx.appcompat)
 	implementation(libs.androidx.lifecycle.viewmodel.ktx)
 	implementation(libs.androidx.fragment.ktx)
+	implementation(libs.android.material)
 	implementation(libs.hilt)
 	kapt(libs.hilt.compiler)
 }

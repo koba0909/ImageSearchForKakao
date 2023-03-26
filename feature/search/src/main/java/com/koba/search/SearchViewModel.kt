@@ -26,8 +26,12 @@ sealed interface SearchUIState {
 class SearchViewModel @Inject constructor(
     private val getImageSearchResultListUseCase: GetImageSearchResultListUseCase,
     private val getVideoSearchResultListUseCase: GetVideoSearchResultListUseCase,
-    private val saveImageUrlUseCase: SaveImageUrlUseCase
+    private val saveImageUrlUseCase: SaveImageUrlUseCase,
 ) : ViewModel() {
+
+    private val _showSnackBar = MutableSharedFlow<Int>()
+    val showSnackBar get() = _showSnackBar
+
     private val _isLoading = MutableStateFlow(false)
 
     private val _keyword = MutableSharedFlow<String>()
@@ -82,9 +86,11 @@ class SearchViewModel @Inject constructor(
 
     fun onPickImage(searchResult: SearchResult) {
         viewModelScope.launch {
+            _showSnackBar.emit(R.string.save_to_storage)
+
             saveImageUrlUseCase(
                 searchResult.thumbnailUrl,
-                System.nanoTime()
+                System.nanoTime(),
             )
         }
     }

@@ -20,12 +20,6 @@ class SearchFragment : BaseDataBindingFragment<FragmentSearchBinding>(R.layout.f
     private val searchListAdapter by lazy {
         SearchListAdapter(
             onPickImage = {
-                Snackbar.make(
-                    binding.root,
-                    R.string.save_to_storage,
-                    Snackbar.LENGTH_SHORT
-                ).show()
-
                 searchViewModel.onPickImage(it)
             },
         )
@@ -70,6 +64,16 @@ class SearchFragment : BaseDataBindingFragment<FragmentSearchBinding>(R.layout.f
                             childFragmentManager.beginTransaction()
                                 .replace(R.id.frame_layout_storage, StorageFragment.newInstance())
                                 .commit()
+                        }
+                    }
+
+                    launch {
+                        showSnackBar.collect {
+                            Snackbar.make(
+                                binding.root,
+                                it,
+                                Snackbar.LENGTH_SHORT,
+                            ).show()
                         }
                     }
                 }
