@@ -1,7 +1,9 @@
 package com.koba.storage
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,12 +18,25 @@ class StorageFragment : BaseDataBindingFragment<FragmentStorageBinding>(R.layout
 
     private val storageViewModel: StorageViewModel by viewModels()
 
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            requireParentFragment().childFragmentManager.beginTransaction()
+                .remove(this@StorageFragment)
+                .commit()
+        }
+    }
+
     private val storageListAdapter: StorageListAdapter by lazy {
         StorageListAdapter(
             onPickImage = {
                 storageViewModel.deleteImage(it.thumbnailUrl)
             },
         )
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,6 +62,11 @@ class StorageFragment : BaseDataBindingFragment<FragmentStorageBinding>(R.layout
                 }
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        backPressedCallback.remove()
     }
 
     companion object {
