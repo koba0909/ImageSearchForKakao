@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.koba.domain.model.SearchResult
 import com.koba.domain.usecase.GetImageSearchResultListUseCase
 import com.koba.domain.usecase.GetVideoSearchResultListUseCase
+import com.koba.domain.usecase.SaveImageUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -25,6 +26,7 @@ sealed interface SearchUIState {
 class SearchViewModel @Inject constructor(
     private val getImageSearchResultListUseCase: GetImageSearchResultListUseCase,
     private val getVideoSearchResultListUseCase: GetVideoSearchResultListUseCase,
+    private val saveImageUrlUseCase: SaveImageUrlUseCase
 ) : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
 
@@ -51,6 +53,9 @@ class SearchViewModel @Inject constructor(
         initialValue = SearchUIState.Empty,
     )
 
+    private val _storageClickEvent = MutableSharedFlow<Unit>()
+    val storageClickEvent get() = _storageClickEvent
+
     fun onSearchKeyword(keyword: String): Boolean {
         viewModelScope.launch {
             _keyword.emit(keyword)
@@ -76,7 +81,18 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onPickImage(searchResult: SearchResult) {
-        // TODO image 선택 후 보관함에 저장
+        viewModelScope.launch {
+            saveImageUrlUseCase(
+                searchResult.thumbnailUrl,
+                System.nanoTime()
+            )
+        }
+    }
+
+    fun onClickStorageButton() {
+        viewModelScope.launch {
+            _storageClickEvent.emit(Unit)
+        }
     }
 
     companion object {

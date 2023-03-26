@@ -7,8 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.snackbar.Snackbar
 import com.koba.base.BaseDataBindingFragment
 import com.koba.search.databinding.FragmentSearchBinding
+import com.koba.storage.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,6 +20,12 @@ class SearchFragment : BaseDataBindingFragment<FragmentSearchBinding>(R.layout.f
     private val searchListAdapter by lazy {
         SearchListAdapter(
             onPickImage = {
+                Snackbar.make(
+                    binding.root,
+                    R.string.save_to_storage,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
                 searchViewModel.onPickImage(it)
             },
         )
@@ -51,8 +59,18 @@ class SearchFragment : BaseDataBindingFragment<FragmentSearchBinding>(R.layout.f
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 searchViewModel.run {
-                    uiState.collect {
-                        binding.uiState = it
+                    launch {
+                        uiState.collect {
+                            binding.uiState = it
+                        }
+                    }
+
+                    launch {
+                        storageClickEvent.collect {
+                            childFragmentManager.beginTransaction()
+                                .replace(R.id.frame_layout_storage, StorageFragment.newInstance())
+                                .commit()
+                        }
                     }
                 }
             }
