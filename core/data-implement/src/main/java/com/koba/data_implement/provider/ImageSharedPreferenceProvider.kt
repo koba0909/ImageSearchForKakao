@@ -2,7 +2,9 @@ package com.koba.data_implement.provider
 
 import android.content.SharedPreferences
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ImageSharedPreferenceProvider @Inject constructor(
     private val sharedPreferences: SharedPreferences,
 ) {

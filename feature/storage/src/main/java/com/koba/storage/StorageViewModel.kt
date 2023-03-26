@@ -46,8 +46,8 @@ class StorageViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching {
                 getSavedImageListUseCase()
-            }.onSuccess {
-                _storageImageList.update { list ->
+            }.onSuccess { list ->
+                _storageImageList.update { _ ->
                     list.sortedBy { it.savedTime }
                 }
             }.onFailure { e ->

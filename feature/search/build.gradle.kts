@@ -1,41 +1,45 @@
 plugins {
-	alias(libs.plugins.android.library)
-	alias(libs.plugins.kotlin.android)
-	alias(libs.plugins.kotlin.kapt)
-	alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
-	namespace = "com.koba.search"
-	compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = "com.koba.search"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
-	buildFeatures {
-		dataBinding = true
-	}
+    buildFeatures {
+        dataBinding = true
+    }
 
-	defaultConfig {
-		minSdk = libs.versions.minSdk.get().toInt()
-		targetSdk = libs.versions.targetSdk.get().toInt()
-	}
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
 
-	compileOptions {
-		sourceCompatibility = JavaVersion.VERSION_1_8
-		targetCompatibility = JavaVersion.VERSION_1_8
-	}
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
+    }
 }
 
 dependencies {
-	implementation(project(":feature:storage"))
-	implementation(project(":core:base"))
-	implementation(project(":core:domain"))
+    implementation(project(":feature:storage"))
+    implementation(project(":core:base"))
+    implementation(project(":core:domain"))
 
-	implementation(libs.androidx.recyclerview)
-	implementation(libs.androidx.constraintlayout)
-	implementation(libs.kotlinx.coroutines.android)
-	implementation(libs.androidx.appcompat)
-	implementation(libs.androidx.lifecycle.viewmodel.ktx)
-	implementation(libs.androidx.fragment.ktx)
-	implementation(libs.android.material)
-	implementation(libs.hilt)
-	kapt(libs.hilt.compiler)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.android.material)
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 }
