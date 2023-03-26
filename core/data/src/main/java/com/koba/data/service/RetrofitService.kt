@@ -16,7 +16,7 @@ interface RetrofitService {
     ): ImageSearchResponseDto
 
     @Headers("Authorization: KakaoAK 26b95b38dfc8ad5778a46b34db535b5f")
-    @GET("/v2/search/video")
+    @GET("/v2/search/vclip")
     suspend fun requestSearchVideo(
         @Query("query")
         query: String,

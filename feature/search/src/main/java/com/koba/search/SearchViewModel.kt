@@ -17,11 +17,12 @@ import javax.inject.Inject
 sealed interface SearchUIState {
     object Empty : SearchUIState
     object Loading : SearchUIState
-    data class Show(
+    data class HaveList(
         val imageList: List<SearchResult>,
     ) : SearchUIState
 }
 
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getImageSearchResultListUseCase: GetImageSearchResultListUseCase,
@@ -36,20 +37,15 @@ class SearchViewModel @Inject constructor(
 
     private val _keyword = MutableSharedFlow<String>()
 
-    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    private val _searchResult = _keyword
-        .onEach { _isLoading.update { true } }
-        .debounce(500)
-        .flatMapLatest { getSearchResultFlow(it) }
-        .onEach {
-            _isLoading.update { false }
-        }
+    private val _searchResult = MutableStateFlow<List<SearchResult>>(emptyList())
 
     val uiState = combine(_isLoading, _searchResult) { isLoading, searchResult ->
         when {
             isLoading -> SearchUIState.Loading
             searchResult.isEmpty() -> SearchUIState.Empty
-            else -> SearchUIState.Show(searchResult)
+            else -> {
+                SearchUIState.HaveList(searchResult)
+            }
         }
     }.stateIn(
         scope = viewModelScope,
@@ -59,6 +55,18 @@ class SearchViewModel @Inject constructor(
 
     private val _storageClickEvent = MutableSharedFlow<Unit>()
     val storageClickEvent get() = _storageClickEvent
+
+    init {
+        viewModelScope.launch {
+            _keyword.onEach { _isLoading.update { true } }
+                .debounce(500)
+                .flatMapLatest { getSearchResultFlow(it) }
+                .collect {
+                    _isLoading.update { false }
+                    _searchResult.emit(it)
+                }
+        }
+    }
 
     fun onSearchKeyword(keyword: String): Boolean {
         viewModelScope.launch {
@@ -86,12 +94,26 @@ class SearchViewModel @Inject constructor(
 
     fun onPickImage(searchResult: SearchResult) {
         viewModelScope.launch {
-            _showSnackBar.emit(R.string.save_to_storage)
+            _showSnackBar.emit(
+                if (searchResult.isSaved) {
+                    R.string.delete_to_storage
+                } else {
+                    R.string.save_to_storage
+                },
+            )
 
             saveImageUrlUseCase(
                 searchResult.thumbnailUrl,
                 System.nanoTime(),
             )
+
+            val selectPosition = _searchResult.value.indexOf(searchResult)
+
+            _searchResult.update {
+                it.toMutableList().apply {
+                    this[selectPosition] = searchResult.copy(isSaved = !searchResult.isSaved)
+                }
+            }
         }
     }
 

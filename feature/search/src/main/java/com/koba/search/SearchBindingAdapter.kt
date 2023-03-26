@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 @BindingAdapter("bindIsSaved")
 internal fun ImageView.bindIsSaved(isSaved: Boolean?) {
     isSaved ?: return
-// 	setImageResource(
-// 		if (isSaved) {
-// 			// 이미 보관함에 추가되었을 경우 이미지
-// 		} else {
-//
-// 		}
-// 	)
+    setImageResource(
+        if (isSaved) {
+            R.drawable.storage_on
+        } else {
+            R.drawable.storage_off
+        },
+    )
 }
 
 @BindingAdapter("bindSearchList")
 internal fun RecyclerView.bindSearchList(state: SearchUIState?) {
-    if (state is SearchUIState.Show) {
+    if (state is SearchUIState.HaveList) {
         (adapter as? SearchListAdapter)?.submitList(state.imageList)
     }
 }

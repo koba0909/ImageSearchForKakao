@@ -3,27 +3,27 @@ package com.koba.domain
 import com.koba.data.dto.ImageInfoDto
 import com.koba.data.dto.SavedImageDto
 import com.koba.data.dto.VideoInfoDto
-import com.koba.domain.model.StorageImage
 import com.koba.domain.model.SearchResult
+import com.koba.domain.model.StorageImage
 
-fun List<ImageInfoDto>.toSearchResultImageList(): List<SearchResult> {
-    return map {
-        SearchResult.Image(
-            thumbnailUrl = it.thumbnailUrl,
-            dateTime = it.datetime,
-            isSaved = false,
-        )
-    }
+internal inline fun ImageInfoDto.toSearchResultImage(
+    isStorage: () -> Boolean
+): SearchResult {
+    return SearchResult(
+        thumbnailUrl = thumbnailUrl,
+        dateTime = datetime,
+        isSaved = isStorage.invoke(),
+    )
 }
 
-fun List<VideoInfoDto>.toSearchResultVideoList(): List<SearchResult> {
-    return map {
-        SearchResult.Video(
-            thumbnailUrl = it.thumbnailUrl,
-            dateTime = it.datetime,
-            isSaved = false,
-        )
-    }
+internal inline fun VideoInfoDto.toSearchResultVideoList(
+    isStorage: () -> Boolean
+): SearchResult {
+    return SearchResult(
+        thumbnailUrl = thumbnailUrl,
+        dateTime = datetime,
+        isSaved = isStorage.invoke(),
+    )
 }
 
-fun SavedImageDto.toSavedImage() = StorageImage(thumbnailUrl, savedTime)
+internal fun SavedImageDto.toSavedImage() = StorageImage(thumbnailUrl, savedTime)

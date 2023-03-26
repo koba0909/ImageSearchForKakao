@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -30,7 +31,8 @@
             android:layout_margin="20dp"
             bindIsSaved="@{imageModel.isSaved}"
             app:layout_constraintBottom_toBottomOf="@id/image_view_thumbnail"
-            app:layout_constraintEnd_toEndOf="@id/image_view_thumbnail"/>
+            app:layout_constraintEnd_toEndOf="@id/image_view_thumbnail"
+            tools:src="@drawable/storage_on"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

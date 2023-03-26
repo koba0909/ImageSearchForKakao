@@ -13,7 +13,7 @@ data class VideoSearchResponseDto(
 
 @Serializable
 data class VideoInfoDto(
-    @SerialName("thumbnail_url")
+    @SerialName("thumbnail")
     val thumbnailUrl: String,
     val datetime: String,
 )

@@ -30,7 +30,7 @@
             android:id="@+id/recyclerview_search_result"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            isVisible="@{uiState instanceof SearchUIState.Show}"
+            isVisible="@{uiState instanceof SearchUIState.HaveList}"
             bindSearchList="@{uiState}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
