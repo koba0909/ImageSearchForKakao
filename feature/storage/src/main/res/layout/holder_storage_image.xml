@@ -5,7 +5,7 @@
     <data>
         <variable
             name="imageModel"
-            type="com.koba.domain.model.SavedImage" />
+            type="com.koba.domain.model.StorageImage" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

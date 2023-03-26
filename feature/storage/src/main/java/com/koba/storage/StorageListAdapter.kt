@@ -6,12 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.koba.domain.model.SavedImage
+import com.koba.domain.model.StorageImage
 import com.koba.storage.viewholder.StorageImageViewHolder
 
 class StorageListAdapter(
-    private val onPickImage: (SavedImage) -> Unit,
-) : ListAdapter<SavedImage, RecyclerView.ViewHolder>(diffCallback) {
+	private val onPickImage: (StorageImage) -> Unit,
+) : ListAdapter<StorageImage, RecyclerView.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return StorageImageViewHolder(
@@ -32,15 +32,15 @@ class StorageListAdapter(
     }
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<SavedImage>() {
+        private val diffCallback = object : DiffUtil.ItemCallback<StorageImage>() {
             override fun areItemsTheSame(
-                oldItem: SavedImage,
-                newItem: SavedImage,
+	            oldItem: StorageImage,
+	            newItem: StorageImage,
             ) = oldItem.thumbnailUrl == newItem.thumbnailUrl
 
             override fun areContentsTheSame(
-                oldItem: SavedImage,
-                newItem: SavedImage,
+	            oldItem: StorageImage,
+	            newItem: StorageImage,
             ) = oldItem == newItem
         }
     }

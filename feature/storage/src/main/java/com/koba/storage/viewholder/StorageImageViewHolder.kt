@@ -1,12 +1,12 @@
 package com.koba.storage.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.koba.domain.model.SavedImage
+import com.koba.domain.model.StorageImage
 import com.koba.storage.databinding.HolderStorageImageBinding
 
 class StorageImageViewHolder(
     private val binding: HolderStorageImageBinding,
-    private val onPickImage: (SavedImage) -> Unit,
+    private val onPickImage: (StorageImage) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.imageViewThumbnail.setOnLongClickListener {
@@ -17,8 +17,8 @@ class StorageImageViewHolder(
         }
     }
 
-    fun bind(savedImage: SavedImage) {
-        binding.imageModel = savedImage
+    fun bind(storageImage: StorageImage) {
+        binding.imageModel = storageImage
         binding.executePendingBindings()
     }
 }
