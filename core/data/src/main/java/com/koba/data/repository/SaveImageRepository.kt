@@ -3,14 +3,14 @@ package com.koba.data.repository
 import com.koba.data.dto.SavedImageDto
 
 interface SaveImageRepository {
-    fun saveImage(
+    suspend fun saveImage(
         thumbnailUrl: String,
         saveTime: Long,
     )
 
-    fun deleteImage(thumbnailUrl: String)
+    suspend fun deleteImage(thumbnailUrl: String)
 
-    fun contain(thumbnailUrl: String): Boolean
+    suspend fun contain(thumbnailUrl: String): Boolean
 
-    fun getSavedImageList(): List<SavedImageDto>
+    suspend fun getSavedImageList(): List<SavedImageDto>
 }

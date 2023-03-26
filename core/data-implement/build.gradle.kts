@@ -21,6 +21,7 @@ android {
 }
 
 dependencies {
+	implementation(project(":core:base"))
 	implementation(project(":core:data"))
 	implementation(project(":core:network"))
 	implementation(libs.bundles.kotlinx.serialization)
