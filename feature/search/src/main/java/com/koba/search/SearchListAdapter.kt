@@ -31,7 +31,27 @@ class SearchListAdapter(
         }
     }
 
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>,
+    ) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            payloads.forEach {
+                if (it == PAYLOAD_STORAGE) {
+                    when (holder) {
+                        is SearchResultViewHolder -> holder.bindIsSaved(getItem(position))
+                    }
+                }
+            }
+        }
+    }
+
     companion object {
+        private const val PAYLOAD_STORAGE = 0
+
         private val diffCallback = object : DiffUtil.ItemCallback<SearchResult>() {
             override fun areItemsTheSame(
                 oldItem: SearchResult,
@@ -42,6 +62,14 @@ class SearchListAdapter(
                 oldItem: SearchResult,
                 newItem: SearchResult,
             ) = oldItem == newItem
+
+            override fun getChangePayload(oldItem: SearchResult, newItem: SearchResult): Any? {
+                return if (oldItem.isSaved != newItem.isSaved) {
+                    PAYLOAD_STORAGE
+                } else {
+                    super.getChangePayload(oldItem, newItem)
+                }
+            }
         }
     }
 }

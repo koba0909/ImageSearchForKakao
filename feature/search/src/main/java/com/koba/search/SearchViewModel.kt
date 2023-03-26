@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.koba.domain.model.SearchResult
+import com.koba.domain.usecase.DeleteImageUrlUseCase
 import com.koba.domain.usecase.GetImageSearchResultListUseCase
 import com.koba.domain.usecase.GetVideoSearchResultListUseCase
 import com.koba.domain.usecase.SaveImageUrlUseCase
@@ -28,6 +29,7 @@ class SearchViewModel @Inject constructor(
     private val getImageSearchResultListUseCase: GetImageSearchResultListUseCase,
     private val getVideoSearchResultListUseCase: GetVideoSearchResultListUseCase,
     private val saveImageUrlUseCase: SaveImageUrlUseCase,
+    private val deleteImageUrlUseCase: DeleteImageUrlUseCase,
 ) : ViewModel() {
 
     private val _showSnackBar = MutableSharedFlow<Int>()
@@ -93,27 +95,39 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onPickImage(searchResult: SearchResult) {
+        if (searchResult.isSaved) {
+            deleteImage(searchResult)
+        } else {
+            saveImage(searchResult)
+        }
+
+        val selectPosition = _searchResult.value.indexOf(searchResult)
+
+        if (selectPosition == -1) return
+
+        _searchResult.update {
+            it.toMutableList().apply {
+                this[selectPosition] = searchResult.copy(isSaved = !searchResult.isSaved)
+            }
+        }
+    }
+
+    private fun saveImage(searchResult: SearchResult) {
         viewModelScope.launch {
-            _showSnackBar.emit(
-                if (searchResult.isSaved) {
-                    R.string.delete_to_storage
-                } else {
-                    R.string.save_to_storage
-                },
-            )
+            _showSnackBar.emit(R.string.save_to_storage)
 
             saveImageUrlUseCase(
                 searchResult.thumbnailUrl,
                 System.nanoTime(),
             )
+        }
+    }
 
-            val selectPosition = _searchResult.value.indexOf(searchResult)
+    private fun deleteImage(searchResult: SearchResult) {
+        viewModelScope.launch {
+            _showSnackBar.emit(R.string.delete_to_storage)
 
-            _searchResult.update {
-                it.toMutableList().apply {
-                    this[selectPosition] = searchResult.copy(isSaved = !searchResult.isSaved)
-                }
-            }
+            deleteImageUrlUseCase(searchResult.thumbnailUrl)
         }
     }
 

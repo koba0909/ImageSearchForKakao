@@ -7,6 +7,10 @@
         <variable
             name="imageModel"
             type="com.koba.domain.model.SearchResult" />
+
+        <variable
+            name="isSaved"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            bindIsSaved="@{imageModel.isSaved}"
+            bindIsSaved="@{isSaved}"
             app:layout_constraintBottom_toBottomOf="@id/image_view_thumbnail"
             app:layout_constraintEnd_toEndOf="@id/image_view_thumbnail"
             tools:src="@drawable/storage_on"/>

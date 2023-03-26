@@ -11,14 +11,28 @@ class SearchResultViewHolder(
     init {
         binding.imageViewThumbnail.setOnLongClickListener {
             binding.imageModel?.let {
-                onPickImage.invoke(it)
+                onPickImage.invoke(
+                    it.copy(
+                        isSaved = binding.isSaved ?: false
+                    )
+                )
             }
             true
         }
     }
 
     fun bind(searchResult: SearchResult) {
-        binding.imageModel = searchResult
-        binding.executePendingBindings()
+        with(binding) {
+            binding.imageModel = searchResult
+            binding.isSaved = searchResult.isSaved
+            executePendingBindings()
+        }
+    }
+
+    fun bindIsSaved(searchResult: SearchResult) {
+        with(binding) {
+            binding.isSaved = searchResult.isSaved
+            binding.executePendingBindings()
+        }
     }
 }
